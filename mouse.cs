@@ -17,6 +17,7 @@ namespace mouse
             Console.WriteLine("|           |");
             Console.WriteLine("|___________|");
         }
+
         public static void dead()
         {
             Console.WriteLine(" ___________");
@@ -26,28 +27,33 @@ namespace mouse
             Console.WriteLine("|     |     |");
             Console.WriteLine("|_____|_____|");
         }
+
         static void Main(string[] args)
         {
-            Random rand = new Random();
-            int num_of_poison = rand.Next(0, 999);
+            Random random = new Random();
+            int num_of_poison = random.Next(0, 999);
+
             string num_result_binary = "";
             int num_result = 0;
+
             int[] mas_of_test_tube = new int[1000];
             for (short i = 0; i < 1000; i++)
             {
                 mas_of_test_tube[i] = 0;
             }
+
             mas_of_test_tube[num_of_poison] = 1;
             num_of_poison++;
+
             int[] mas_of_mouse = new int[10];
             for (short i = 0; i < 10; i++)
             {
-                mas_of_mouse[i] = 0;//zero - mouse is clear, one - mouse is sick
+                mas_of_mouse[i] = 0; //zero - mouse is clear, one - mouse is sick
             }
 
             string num_test_tube_binary;
-            char temp2;
-            int temp3;
+            char buffer_tube_binary;
+            int buffer_tube_decimal;
             for (short i = 0; i < 1000; i++)
             {
                 num_test_tube_binary = Convert.ToString(i + 1, 2);
@@ -60,10 +66,12 @@ namespace mouse
                 }
                 for (short j = 0; j < 10; j++)
                 {
-                    temp2 = num_test_tube_binary[j];
-                    temp3 = Convert.ToInt32(temp2);
-                    if (temp3 == 49 && mas_of_mouse[j] == 0)
-                        mas_of_mouse[j] = mas_of_test_tube[i];
+                    buffer_tube_binary = num_test_tube_binary[j];
+                    buffer_tube_decimal = Convert.ToInt32(buffer_tube_binary);
+                    if (buffer_tube_decimal == 49 && mas_of_mouse[j] == 0)
+                    {
+                      mas_of_mouse[j] = mas_of_test_tube[i];
+                    }
                 }
             }
 
@@ -88,12 +96,9 @@ namespace mouse
 
             num_result = Convert.ToInt32(num_result_binary, 2);
 
-
             Console.WriteLine("Poison is here -> " + num_of_poison);
             Console.WriteLine("Program think that his binary code is " + num_result_binary);
             Console.WriteLine("That in decimal system is " + num_result);
-
-
             Console.ReadKey();
         }
     }
